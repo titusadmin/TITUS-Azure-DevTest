@@ -81,7 +81,7 @@
     },
     "vmSize": {
       "type": "string",
-      "defaultValue": "Standard_D1",
+      "defaultValue": "Standard_DS2_v2",
       "metadata": {
         "description": "This is the allowed list of VM sizes"
       }
@@ -93,7 +93,7 @@
     "subnetName": "backendSubnet",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables ('subnetName'))]",
-    "numberOfInstances": 2,
+    "numberOfInstances": 3,
     "lbID": "[resourceId('Microsoft.Network/loadBalancers',parameters('loadBalancerName'))]"
   },
   "resources": [
