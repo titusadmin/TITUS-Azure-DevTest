@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_OWA2016_DC1_adminPassword": {
+            "value": null
+        },
+        "virtualMachines_OWA2016_DC1_name": {
+            "value": null
+        },
+        "networkInterfaces_OWA2016_DC1_name": {
+            "value": null
+        },
+        "publicIPAddresses_owa2016_dc1_name": {
+            "value": null
+        },
+        "networkInterfaces_OWA2016_DC1_id": {
+            "value": null
+        }
+    }
+}

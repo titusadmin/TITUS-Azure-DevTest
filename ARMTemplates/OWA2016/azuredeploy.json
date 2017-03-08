@@ -1,0 +1,139 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_OWA2016_DC1_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_OWA2016_DC1_name": {
+            "defaultValue": "OWA2016-DC1",
+            "type": "String"
+        },
+        "networkInterfaces_OWA2016_DC1_name": {
+            "defaultValue": "OWA2016-DC1",
+            "type": "String"
+        },
+        "publicIPAddresses_owa2016_dc1_name": {
+            "defaultValue": "owa2016-dc1",
+            "type": "String"
+        },
+        "networkInterfaces_OWA2016_DC1_id": {
+            "defaultValue": "/subscriptions/af2a8333-964d-4fba-874e-6e86f0488eb7/resourceGroups/TAZLABS-US-EastRG930613/providers/Microsoft.Network/virtualNetworks/DtlTAZLABS-US-East/subnets/OWA-Subnet",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/af2a8333-964d-4fba-874e-6e86f0488eb7/resourceGroups/TAZLABS-US-East-OWA2016-DC1-513874/providers/Microsoft.Compute/virtualMachines/OWA2016-DC1'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_OWA2016_DC1_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {
+                "hidden-DevTestLabs-LabUId": "26d69399-71c6-492f-9ea3-6608debb4467",
+                "hidden-DevTestLabs-LogicalResourceUId": "b74b8e21-8ddd-40ef-be45-ed0c320ec0c9"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D1_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2012-R2-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_OWA2016_DC1_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https://dtazlabsuseast8137.blob.core.windows.net/vhds/TAZLABS-US-East-', parameters('virtualMachines_OWA2016_DC1_name'),'-513874-', parameters('virtualMachines_OWA2016_DC1_name'),'-20161213-160717.vhd')]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_OWA2016_DC1_name')]",
+                    "adminUsername": "titus",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_OWA2016_DC1_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_OWA2016_DC1_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_OWA2016_DC1_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af2a8333-964d-4fba-874e-6e86f0488eb7/resourceGroups/TAZLABS-US-East-OWA2016-DC1-513874/providers/Microsoft.Network/networkInterfaces/OWA2016-DC1'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_OWA2016_DC1_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {
+                "hidden-DevTestLabs-LabUId": "26d69399-71c6-492f-9ea3-6608debb4467",
+                "hidden-DevTestLabs-LogicalResourceUId": "b74b8e21-8ddd-40ef-be45-ed0c320ec0c9"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "NicIPConfigName1",
+                        "properties": {
+                            "privateIPAddress": "10.0.2.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_owa2016_dc1_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[parameters('networkInterfaces_OWA2016_DC1_id')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_owa2016_dc1_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/af2a8333-964d-4fba-874e-6e86f0488eb7/resourceGroups/TAZLABS-US-East-OWA2016-DC1-513874/providers/Microsoft.Network/publicIPAddresses/owa2016-dc1'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_owa2016_dc1_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {
+                "hidden-DevTestLabs-LabUId": "26d69399-71c6-492f-9ea3-6608debb4467",
+                "hidden-DevTestLabs-LogicalResourceUId": "b74b8e21-8ddd-40ef-be45-ed0c320ec0c9"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "[parameters('publicIPAddresses_owa2016_dc1_name')]"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        }
+    ]
+}
